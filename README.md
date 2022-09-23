@@ -13,5 +13,5 @@ https://wetransfer.com/downloads/7de3c507e2a57be3fe8b001da22727c720220923170149/
 
 # le schema # 
 
-
+ vu que l'on ne trouvais pas notre micro sur le site on l'a remplacer par un Potentiomètre
 ![Grand Jaiks-Crift](https://user-images.githubusercontent.com/94788341/192039430-1c4ca851-3644-4f9e-a2b3-98cc06478f6d.png)
