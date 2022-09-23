@@ -5,7 +5,7 @@
   - Microphone, 
   - Carte Arduino,
   - Ecarn LCD 
-/
+*/
 
 #include <LiquidCrystal.h>
 
@@ -33,7 +33,7 @@ LiquidCrystal lcd_1(12, 11, 5, 4, 3, 2);
 void setup()
 {
   pinMode(pinMicro, INPUT);
-  pinMode(ledSaut, OUTPUT);
+  
 
   lcd_1.createChar(0, person); // apprend le caractère à l'écran LCD
   lcd_1.begin(16, 2); 
