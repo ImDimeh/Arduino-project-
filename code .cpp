@@ -1,57 +1,75 @@
-#include <Arduino.h>
-#include <LiquidCrystal.h>
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2 );
-const int micPin = A1;
-const int switchPin = 6;
-int switchState = 0;
-int prevSwitchState = 0;
-int reply;
-int micVal= 0;
+/*
+  Projet : Déplacer un personnage sur un écran LCD
+  Le faire sauter en fonction de l'intensité du son
+  Matériels utilisés : 
+  - Microphone, 
+  - Carte Arduino,
+  - Ecarn LCD 
+/
 
-void readMicrophone( ) { 
-      /* function readMicrophone */
-     ////Test routine for Microphone
-     micVal = analogRead(micPin);
-     Serial.print(F("mic val ")); Serial.println(micVal);
-     if (micVal > 600) {
-            Serial.println("mic detected");
-            Serial.begin(9600);
-            Serial.println(F("Initialize System"));
-            //Init Microphone
-            pinMode(micPin, INPUT);
-     }
-void setup(){
-  lcd.begin(16,2);
-  pinMode(switchPin,INPUT);
-  lcd.print("Google");
-  lcd.setCursor(0,1);
-  lcd.print("dinosaur");
-  delay(1000000);
-  pinMode(micPin, INPUT);
+#include <LiquidCrystal.h>
+
+int seconds = 0;
+int valueSound = 0;
+int posCursorY = 1;
+int posCursorX = 0;
+int pinMicro = A0;
+int valMicroBrute = 0;
+ 
+
+byte person[8] = {
+    B00000,
+    B10001,
+    B00100,
+    B00000,
+    B10001,
+    B01110,
+    B00000,
+    B00000
+};
+
+LiquidCrystal lcd_1(12, 11, 5, 4, 3, 2);
+
+void setup()
+{
+  pinMode(pinMicro, INPUT);
+  pinMode(ledSaut, OUTPUT);
+
+  lcd_1.createChar(0, person); // apprend le caractère à l'écran LCD
+  lcd_1.begin(16, 2); 
+  lcd_1.setCursor(posCursorX, posCursorY);
+  lcd_1.write((uint8_t) 0); // affiche le caractère de l'adresse 0
 }
-void loop(){
-  readMicrophone();
-  switchState=digitalRead(switchPin);
-  if (switchState != prevSwitchState){
-    if(switchState == LOW){
-      reply = random(8);
-      lcd.clear();
-      lcd.setCursor(0,0);
-      lcd.print("the ball says");
-      lcd.setCursor(0,1);
-      switch(reply){
-        case 0:
-        lcd.print("yes");
-        break;
-        case 1:
-        lcd.print("no");
-        break;
-        case 2:
-        lcd.print("maybe");
-        break;
-        
-      }
-    }
+
+void loop()
+{
+  valMicroBrute = analogRead(pinMicro);
+  ///valPos = valBrute 15/1023;
+
+  /* Saut du personnage si la valeur du potentiometre est supérieure à 500 */
+  if(valMicroBrute > 500){
+    posCursorY = 0;
+  }else{
+    posCursorY = 1;
   }
-  prevSwitchState = switchState;
+
+  if(posCursorX == 16){
+     posCursorX = 0;
+  }
+  lcd_1.createChar(0, person);
+  lcd_1.begin(16, 2);
+  lcd_1.setCursor(posCursorX, posCursorY);
+  lcd_1.write((uint8_t) 0);
+  posCursorX ++;
+  delay(300); // Wait for 300 millisecond(s)
+
+  if(posCursorX == 16){
+     posCursorX = 0;
+  }
+  lcd_1.createChar(0, person);
+  lcd_1.begin(16, 2);
+  lcd_1.setCursor(posCursorX, posCursorY);
+  lcd_1.write((uint8_t) 0);
+  posCursorX ++;
+  delay(500); // Wait for 1000 millisecond(s)
 }
