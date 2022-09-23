@@ -13,4 +13,5 @@ https://wetransfer.com/downloads/7de3c507e2a57be3fe8b001da22727c720220923170149/
 
 # le schema # 
 
-![lcd](https://user-images.githubusercontent.com/94788341/192031890-9fbc6104-4be3-4199-883a-a2f080a4e49e.PNG)
+
+![Grand Jaiks-Crift](https://user-images.githubusercontent.com/94788341/192039430-1c4ca851-3644-4f9e-a2b3-98cc06478f6d.png)
